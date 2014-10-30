@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app='mySite'>
+	<head>
+		<link rel='stylesheet' type='text/css' href='style.css' />
+		<script type='text/javascript' src='angular.min.js'></script>
+		<script type='text/javascript' src='mySite.js'></script>
+	</head>
+
+	<body ng-controller='PanelController as panelSwitcher'>
+		<div id='header'>
+			<ul>
+				<li ng-class='{active:panelSwitcher.checkSelected(1)}'>
+					<p ng-click='panelSwitcher.setPanel(1)'>Home</p>
+				</li>
+				<li ng-class='{active:panelSwitcher.checkSelected(2)}'>
+					<p ng-click='panelSwitcher.setPanel(2)'>Projects</p>
+				</li>
+			</ul>
+		</div>
+		<div id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
+			<p>Home!</p>
+		</div>
+		<div id='projects' ng-show='panelSwitcher.checkSelected(2)'>
+			<p>Projects!</p>
+		</div>
+		<div id='footer'>
+	</body>
+</html>
