@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app='mySite'>
 	<head>
+		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 		<link rel='stylesheet' type='text/css' href='style.css' />
 		<script type='text/javascript' src='angular.min.js'></script>
 		<script type='text/javascript' src='mySite.js'></script>
@@ -8,21 +9,24 @@
 
 	<body ng-controller='PanelController as panelSwitcher'>
 		<div id='header'>
+			<h1>Robert Benapfl</h1>		
 			<ul>
-				<li ng-class='{active:panelSwitcher.checkSelected(1)}'>
+				<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(1)}'>
 					<p ng-click='panelSwitcher.setPanel(1)'>Home</p>
 				</li>
-				<li ng-class='{active:panelSwitcher.checkSelected(2)}'>
+				<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(2)}'>
 					<p ng-click='panelSwitcher.setPanel(2)'>Projects</p>
 				</li>
+
 			</ul>
 		</div>
-		<div id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
+		<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
 			<p>Home!</p>
 		</div>
-		<div id='projects' ng-show='panelSwitcher.checkSelected(2)'>
+		<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(2)'>
 			<p>Projects!</p>
 		</div>
 		<div id='footer'>
+		</div>
 	</body>
 </html>
