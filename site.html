@@ -2,31 +2,41 @@
 <html ng-app='mySite'>
 	<head>
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-		<link rel='stylesheet' type='text/css' href='style.css' />
-		<script type='text/javascript' src='angular.min.js'></script>
-		<script type='text/javascript' src='mySite.js'></script>
+		<link rel='stylesheet' type='text/css' href='css/normalize.css' />
+		<link rel='stylesheet' type='text/css' href='css/style.css' />
+		<script type='text/javascript' src='javascripts/angular.min.js'></script>
+		<script type='text/javascript' src='javascripts/mySite.js'></script>
+		
 	</head>
 
 	<body ng-controller='PanelController as panelSwitcher'>
-		<div id='header'>
-			<h1>Robert Benapfl</h1>		
-			<ul>
-				<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(1)}'>
-					<p ng-click='panelSwitcher.setPanel(1)'>Home</p>
-				</li>
-				<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(2)}'>
-					<p ng-click='panelSwitcher.setPanel(2)'>Projects</p>
-				</li>
+		<div id='mainContainer'>
+			<div id='header'>
+				<h1>Robert Benapfl</h1>		
+				<ul>
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(1)}'>
+						<p ng-click='panelSwitcher.setPanel(1)'>Home</p>
+					</li>
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(2)}'>
+						<p ng-click='panelSwitcher.setPanel(2)'>Projects</p>
+					</li>
 
-			</ul>
-		</div>
-		<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
-			<p>Home!</p>
-		</div>
-		<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(2)'>
-			<p>Projects!</p>
+				</ul>
+			</div>
+			<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
+				<p>Home!</p>
+			</div>
+			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(2)'>
+				<p>Projects!</p>
+			</div>
+			<div class='panel' id='contact' ng-show='panelSwitcher.checkSelected(3)' >
+				<p>Contact!</p>
+			</div>
+			<div stickyFooter></div>
 		</div>
 		<div id='footer'>
+			<a href='https://github.com/rbenapfl' target='_blank'><img src='images/githubicon.jpg' height='56' width='56'>></a>
+			<a href='http://www.linkedin.com/in/robertbenapfl' target='_blank'><img src='images/linkedinicon.jpg' height='56' width='56'></a>
 		</div>
 	</body>
 </html>
