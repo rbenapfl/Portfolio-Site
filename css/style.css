@@ -9,14 +9,20 @@ html, body {
 	font-family: 'Fjalla One', sans-serif;
 }
 
-.clickable {
-	cursor: pointer;
+#mainContainer {
+	min-height: 100%;
+	margin: 0 auto -75px;
 }
+
 
 #header {
 	height: 100px;
 	color: #FFFFFF;
 	background-color: #000000;
+}
+
+.clickable {
+	cursor: pointer;
 }
 
 h1 {
@@ -28,12 +34,12 @@ h1 {
 }
 
 
-ul{
+#header ul{
 	float: right;
 	list-style-type: none;
 }
 	
-li {
+#header li {
 	float: left;
 	padding: 10px;
 	margin-top: 27.5px;
@@ -41,7 +47,7 @@ li {
 	margin-bottom: 27.5px;
 }
 
-li p {
+#header li p {
 	font-size: 20px;
 }
 
@@ -50,10 +56,6 @@ li p {
 	background-color: #FFFFFF;
 }
 
-#mainContainer {
-	min-height: 100%;
-	margin: 0 auto -75px;
-}
 .panel {
 
 }
@@ -68,3 +70,10 @@ li p {
 	background-color: #000000;
 	position: relative;
 }
+
+nav {
+	float: right;
+	margin-top: 7.5px;
+	margin-right: 5px;
+	margin-bottom: 7.5px;
+}	

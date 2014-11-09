@@ -20,23 +20,31 @@
 					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(2)}'>
 						<p ng-click='panelSwitcher.setPanel(2)'>Projects</p>
 					</li>
-
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(3)}'>
+						<p ng-click='panelSwitcher.setPanel(3)'>Contact</p>
+					</li>
 				</ul>
 			</div>
 			<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
-				<p>Home!</p>
+				<div ng-controller='QuicksortController as quicksort'>
+					<p>{{quicksort.startingMessage}}</p>
+				</div>
 			</div>
 			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(2)'>
 				<p>Projects!</p>
+				<p>{{panelSwitcher.activePanel}}</p>
 			</div>
-			<div class='panel' id='contact' ng-show='panelSwitcher.checkSelected(3)' >
+			<div class='panel' id='contact' ng-show='panelSwitcher.checkSelected(3)'>
 				<p>Contact!</p>
+				<p>{{panelSwitcher.activePanel}}</p>
 			</div>
 			<div stickyFooter></div>
 		</div>
 		<div id='footer'>
-			<a href='https://github.com/rbenapfl' target='_blank'><img src='images/githubicon.jpg' height='56' width='56'>></a>
-			<a href='http://www.linkedin.com/in/robertbenapfl' target='_blank'><img src='images/linkedinicon.jpg' height='56' width='56'></a>
+			<nav id='links'>
+				<a href='https://github.com/rbenapfl' target='_blank'><img src='images/githubicon.jpg' height='56' width='56'>></a>
+				<a href='http://www.linkedin.com/in/robertbenapfl' target='_blank'><img src='images/linkedinicon.jpg' height='56' width='56'></a>
+			</nav>
 		</div>
 	</body>
 </html>
