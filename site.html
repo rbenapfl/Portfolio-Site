@@ -18,23 +18,34 @@
 						<p ng-click='panelSwitcher.setPanel(1)'>Home</p>
 					</li>
 					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(2)}'>
-						<p ng-click='panelSwitcher.setPanel(2)'>Projects</p>
+						<p ng-click='panelSwitcher.setPanel(2)'>About</p>
 					</li>
 					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(3)}'>
-						<p ng-click='panelSwitcher.setPanel(3)'>Contact</p>
+						<p ng-click='panelSwitcher.setPanel(3)'>Projects</p>
+					</li>
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(4)}'>
+						<p ng-click='panelSwitcher.setPanel(4)'>Contact</p>
 					</li>
 				</ul>
 			</div>
 			<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)'>
 				<div ng-controller='QuicksortController as quicksort'>
-					<p>{{quicksort.startingMessage}}</p>
+					<ul ng-repeat='message in quicksort.messages'>
+						<li ng-repeat='letter in message'>
+							<p class='{{letter.status}}'>{{letter.letter}}</p>
+						</li>
+					</ul>
 				</div>
 			</div>
-			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(2)'>
+			<div class='panel' id='about' ng-show='panelSwitcher.checkSelected(2)'>
+				<p>About!</p>
+				<p>{{panelSwitcher.activePanel}}</p>
+			</div>
+			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(3)'>
 				<p>Projects!</p>
 				<p>{{panelSwitcher.activePanel}}</p>
 			</div>
-			<div class='panel' id='contact' ng-show='panelSwitcher.checkSelected(3)'>
+			<div class='panel' id='contact' ng-show='panelSwitcher.checkSelected(4)'>
 				<p>Contact!</p>
 				<p>{{panelSwitcher.activePanel}}</p>
 			</div>

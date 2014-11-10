@@ -60,6 +60,18 @@ h1 {
 
 }
 
+#homePanel ul {
+	text-align: center;
+	list-style-type: none;
+	color: red;
+	font-size: 30px;
+}
+
+#homePanel li {
+	margin: 20px;
+	display: inline-block;
+}
+
 #stickyFooter {
 	height: 75px;
 }
