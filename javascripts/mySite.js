@@ -15,36 +15,64 @@
 
 	app.controller('QuicksortController', function(Shuffler) {
 		this.startingMessage = homeMessage;
-		this.endLetters = endLetters;
+		this.endValues = endValues;
 		this.messages = [];
 		this.arraysToEvaluate = [];
 		this.activePivots = [];
+		this.pivotObjects = []
 
 		this.init = function() {
 			var shuffledMessage = Shuffler.shuffleArray(this.startingMessage)
 			this.messages.push(shuffledMessage)
+			this.arraysToEvaluate.push(this.getValues())
+			this.createFirstPivot()
 			this.interval = setInterval(this.switchboard.bind(this), 200)
 		};
-
 		this.switchboard = function() {
-			if (this.checkLetters() === this.endLetters) {
+			if (this.getValues() === this.endValues) {
 				console.log("clearing the loop")
 				clearInterval(this.interval)
 			}
-			else {				
-				console.log("in the loop")
+			else {	
+				this.evaluateStep()			
 			}
 		};
-
-		this.checkLetters= function() {
+		this.evaluateStep = function() {
+			for (i = 0; i < this.arraysToEvaluate.length; i++) {
+				var currentCell = this.arraysToEvaluate[i][0]
+				var currentPivot = this.activePivots[i]
+				var objectToEvaluate = this.showEvaluated(currentCell)
+				this.evaluateCell(objectToEvaluate,currentPivot)
+				if (this.arraysToEvaluate[i].length === 1) {
+					this.setNewPivot(currentPivot)
+				}
+				this.arraysToEvaluate[i].shift()				
+			}
+		};
+		this.evaluateCell = function(cellObject,pivot) {
+			console.log("appending new cell")
+			console.log(cellObject)
+			console.log(pivot)
+		};
+		this.showEvaluated = function(currentCell) {
+			console.log("updating old cell")
+			console.log(currentCell)
+			return {Hello:"makingprogress"}
+		};
+		this.createFirstPivot = function() {
+			console.log("getting there")
+			var middleIndex = Math.ceil(this.arraysToEvaluate[0].length / 2) - 1
+			this.activePivots.push(this.arraysToEvaluate[0][middleIndex])
+		};
+		this.setNewPivot = function() {
+			console.log("still a bit stumped")
+		}
+		this.getValues= function() {
 			return this.messages[this.messages.length-1].map(function(letterObject) {
-				return letterObject.letter
+				return letterObject.value
 			})
 		};
-
-
 		this.init()
-
 	});
 
 	app.service('Shuffler', function() {
@@ -74,5 +102,5 @@
 			{letter:'e',value:11,status:'unsolved'},
 			{letter:'r',value:12,status:'unsolved'}
 	]
-    var endLetters = ['W','e','b','D','e','v','e','l','o','p','e','r']
+    var endValues = [1,2,3,4,5,6,7,8,9,10,11,12]
 })();
