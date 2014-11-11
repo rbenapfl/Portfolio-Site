@@ -14,9 +14,37 @@
 	});
 
 	app.controller('QuicksortController', function(Shuffler) {
-		this.startingMessage = homeMessage
-		this.shuffledMessage = Shuffler.shuffleArray(this.startingMessage);
-		this.messages = [this.shuffledMessage,[{letter:'yesthisworksyay'}]]
+		this.startingMessage = homeMessage;
+		this.endLetters = endLetters;
+		this.messages = [];
+		this.arraysToEvaluate = [];
+		this.activePivots = [];
+
+		this.init = function() {
+			var shuffledMessage = Shuffler.shuffleArray(this.startingMessage)
+			this.messages.push(shuffledMessage)
+			this.interval = setInterval(this.switchboard.bind(this), 200)
+		};
+
+		this.switchboard = function() {
+			if (this.checkLetters() === this.endLetters) {
+				console.log("clearing the loop")
+				clearInterval(this.interval)
+			}
+			else {				
+				console.log("in the loop")
+			}
+		};
+
+		this.checkLetters= function() {
+			return this.messages[this.messages.length-1].map(function(letterObject) {
+				return letterObject.letter
+			})
+		};
+
+
+		this.init()
+
 	});
 
 	app.service('Shuffler', function() {
@@ -46,5 +74,5 @@
 			{letter:'e',value:11,status:'unsolved'},
 			{letter:'r',value:12,status:'unsolved'}
 	]
-
+    var endLetters = ['W','e','b','D','e','v','e','l','o','p','e','r']
 })();
