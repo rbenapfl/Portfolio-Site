@@ -63,7 +63,6 @@ h1 {
 #homePanel ul {
 	text-align: center;
 	list-style-type: none;
-	color: red;
 	font-size: 30px;
 }
 
@@ -72,6 +71,9 @@ h1 {
 	display: inline-block;
 }
 
+.pivot {
+	color: red;
+}
 #stickyFooter {
 	height: 75px;
 }
