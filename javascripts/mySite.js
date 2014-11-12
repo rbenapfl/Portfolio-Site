@@ -13,25 +13,25 @@
 		};
 	});
 
-	app.controller('QuicksortController', function(Shuffler) {
+	app.controller('QuicksortController', function(Shuffler,$timeout,$interval) {
 		this.startingMessage = homeMessage;
 		this.endValues = endValues;
 		this.messages = [];
 		this.arraysToEvaluate = [];
 		this.activePivots = [];
-		this.pivotObjects = []
+		this.sortedObjectsQueue = []
+		this.oldPivots = []
+		this.shuffledMessage = Shuffler.shuffleArray(this.startingMessage)
+		this.messages.push(this.shuffledMessage)
 
 		this.init = function() {
-			var shuffledMessage = Shuffler.shuffleArray(this.startingMessage)
-			this.messages.push(shuffledMessage)
-			this.arraysToEvaluate.push(this.getValues())
 			this.createFirstPivot()
-			this.interval = setInterval(this.switchboard.bind(this), 200)
+			this.interval = $interval(this.switchboard.bind(this), 200, [0], [true])
 		};
 		this.switchboard = function() {
 			if (this.getValues() === this.endValues) {
 				console.log("clearing the loop")
-				clearInterval(this.interval)
+				cancel(this.interval)
 			}
 			else {	
 				this.evaluateStep()			
@@ -49,20 +49,23 @@
 				this.arraysToEvaluate[i].shift()				
 			}
 		};
-		this.evaluateCell = function(cellObject,pivot) {
-			console.log("appending new cell")
-			console.log(cellObject)
-			console.log(pivot)
-		};
 		this.showEvaluated = function(currentCell) {
 			console.log("updating old cell")
 			console.log(currentCell)
 			return {Hello:"makingprogress"}
 		};
+		this.evaluateCell = function(cellObject,pivot) {
+			console.log("appending new cell")
+		};
 		this.createFirstPivot = function() {
-			console.log("getting there")
-			var middleIndex = Math.ceil(this.arraysToEvaluate[0].length / 2) - 1
-			this.activePivots.push(this.arraysToEvaluate[0][middleIndex])
+			var middleIndex = Math.ceil(this.messages[0].length / 2) - 1
+			var pivotObjectOnDom = this.messages[0][middleIndex]
+			pivotObjectOnDom.status = "pivot"
+			var values = this.getValues()
+			this.activePivots.push(values[middleIndex])
+			values.splice(middleIndex,1)
+			this.arraysToEvaluate.push(values)
+			this.messages.push([pivotObjectOnDom])
 		};
 		this.setNewPivot = function() {
 			console.log("still a bit stumped")
@@ -72,7 +75,7 @@
 				return letterObject.value
 			})
 		};
-		this.init()
+		$timeout(this.init.bind(this), [1000], [true])
 	});
 
 	app.service('Shuffler', function() {
