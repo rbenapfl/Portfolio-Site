@@ -74,6 +74,9 @@ h1 {
 .pivot {
 	color: red;
 }
+.evaluated {
+	color: blue;
+}
 #stickyFooter {
 	height: 75px;
 }
