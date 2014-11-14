@@ -44,7 +44,7 @@
 				var objectToEvaluate = this.showEvaluated(currentCellValue,currentPivot,rowOfActivePivot)
 				this.evaluateCell(objectToEvaluate,currentPivot,rowOfActivePivot)
 				if (this.arraysToEvaluate[i].length === 1) {
-					this.setNewPivots(currentPivot)
+					this.setNewPivots(currentPivot,rowOfActivePivot)
 				}
 				this.arraysToEvaluate[i].shift()				
 			}
@@ -60,8 +60,16 @@
 			}
 			return objectToSort
 		};
-		this.getWorkingPivotIndex = function(pivot) {
-			//goes through this.messages and finds the row with the value of pivot and status = pivot
+		this.getWorkingPivotRow = function(pivot) {
+			var row = 0
+			for (var i = 0; i < this.messages.length; i++) {
+				for (var j = 0; j < this.messages[i].length; j++) {
+					if (this.messages[i][j].value === pivot && this.messages[i][j].status === 'pivot'){
+						row = i
+					}
+				}
+			}
+			return row
 		}
 		this.evaluateCell = function(cellObject,pivot,pivotRow) {
 			var currentObjectArray = this.messages[pivotRow + 1]
@@ -87,27 +95,24 @@
 		this.createFirstPivot = function() {
 			var middleIndex = Math.ceil(this.messages[0].length / 2) - 1
 			var pivotObjectOnDom = this.messages[0][middleIndex]
+			var solvedObjectOnDom = JSON.parse(JSON.stringify(pivotObjectOnDom))
 			pivotObjectOnDom.status = 'pivot'
-			picotObjectOnDom.parentPivot = 'first'
-			//copy this nonsense and make a new object in the next row as solved not pivot
+			pivotObjectOnDom.parentPivot = ['first']
+			solvedObjectOnDom.status = 'solved'
 			var values = this.getValues()
 			this.activePivots.push(values[middleIndex])
 			values.splice(middleIndex,1)
 			this.arraysToEvaluate.push(values)
-			this.messages.push([pivotObjectOnDom])
+			this.messages.push([solvedObjectOnDom])
 		};
-		this.setNewPivots = function(usedPivot) {
-			/*okay bro heres the scoop
-			every time you set a pivot you push it to the next row on the dom because
-			evaluated cells are pushed based on the row after the active pivot duhh
-			this function will take the pivot go find the objects they got sorted into,
-			get the middle index assign the pivot whic is always located on the objects that will be on the flipping
-			dom in the row after the pivot that is passed into this
-			you will make them pivots in that row and then push and unshift them into the row after that
-			and start evaluating
-			also if the array length is 1 in the object then that will be created as a pivot then 
-			pushed or unshifted into the next row immediately (based on parent once agian) then u will destroy
-			the object and not queue it because it doesnt need to be sorted */
+		this.setNewPivots = function(usedPivot,usedPivotRow) {
+			//keep track of parent pivots by pushing used pivot into its parentPivot array
+			//search for the object to turn into a pivot looking in row after used pivot row
+			//turn those into pivots queue the arrays
+			//turn them into solved in the next row if it is empty aka two rows after the used pivot is empty
+			//push the pivot first into the new row of this.messages as solved
+			//drag down all parent pivots that are solved (all of them will be in the row of this object)
+			//if they arent already there
 		};
 		this.getValues = function() {
 			return this.messages[this.messages.length-1].map(function(letterObject) {
