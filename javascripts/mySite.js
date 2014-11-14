@@ -20,7 +20,6 @@
 		this.arraysToEvaluate = [];
 		this.activePivots = [];
 		this.sortedObjectsQueue = []
-		this.oldPivots = []
 		this.shuffledMessage = Shuffler.shuffleArray(this.startingMessage)
 		this.messages.push(this.shuffledMessage)
 
@@ -41,16 +40,17 @@
 			for (i = 0; i < this.arraysToEvaluate.length; i++) {
 				var currentCellValue = this.arraysToEvaluate[i][0]
 				var currentPivot = this.activePivots[i]
-				var objectToEvaluate = this.showEvaluated(currentCellValue)
-				this.evaluateCell(objectToEvaluate,currentPivot)
+				var rowOfActivePivot = this.getWorkingPivotRow(currentPivot)
+				var objectToEvaluate = this.showEvaluated(currentCellValue,currentPivot,rowOfActivePivot)
+				this.evaluateCell(objectToEvaluate,currentPivot,rowOfActivePivot)
 				if (this.arraysToEvaluate[i].length === 1) {
-					this.setNewPivot(currentPivot)
+					this.setNewPivots(currentPivot)
 				}
 				this.arraysToEvaluate[i].shift()				
 			}
 		};
-		this.showEvaluated = function(value) {
-			var pastObjectArray = this.messages[this.messages.length-2]
+		this.showEvaluated = function(value,pivot,pivotRow) {
+			var pastObjectArray = this.messages[pivotRow]
 			var objectToSort = {}
 			for (var i = 0; i < pastObjectArray.length; i++) {
 				if (pastObjectArray[i].value === value) {
@@ -59,15 +59,13 @@
 				}
 			}
 			return objectToSort
-	};
-		this.evaluateCell = function(cellObject,pivot) {
-			var currentPivotIndex = 0
-			var currentObjectArray = this.messages[this.messages.length-1]
-			for (var i = 0; i < currentObjectArray.length; i++) {
-				if (currentObjectArray[i].value === pivot) {
-					currentPivotIndex = i
-				}
-			}
+		};
+		this.getWorkingPivotIndex = function(pivot) {
+			//goes through this.messages and finds the row with the value of pivot and status = pivot
+		}
+		this.evaluateCell = function(cellObject,pivot,pivotRow) {
+			var currentObjectArray = this.messages[pivotRow + 1]
+			var currentPivotIndex = this.retrievePivotIndex(pivot)
 			if (cellObject.value < pivot) {
 				currentObjectArray.splice(currentPivotIndex,0,cellObject)
 				this.assignToSortedArray(cellObject.value,pivot,'left')
@@ -76,19 +74,41 @@
 				this.assignToSortedArray(cellObject.value,pivot,'Right')
 			}		
 		};
+		this.retrievePivotIndex = function(pivot) {
+			var currentObjectArray = this.messages[this.messages.length-1]
+			var index = 0
+			for (var i = 0; i < currentObjectArray.length; i++) {
+				if (currentObjectArray[i].value === pivot) {
+					index = i
+				}
+			}
+			return index
+		}
 		this.createFirstPivot = function() {
 			var middleIndex = Math.ceil(this.messages[0].length / 2) - 1
 			var pivotObjectOnDom = this.messages[0][middleIndex]
 			pivotObjectOnDom.status = 'pivot'
+			picotObjectOnDom.parentPivot = 'first'
+			//copy this nonsense and make a new object in the next row as solved not pivot
 			var values = this.getValues()
 			this.activePivots.push(values[middleIndex])
 			values.splice(middleIndex,1)
 			this.arraysToEvaluate.push(values)
 			this.messages.push([pivotObjectOnDom])
 		};
-		this.setNewPivot = function() {
-			console.log("still a bit stumped")
-		}
+		this.setNewPivots = function(usedPivot) {
+			/*okay bro heres the scoop
+			every time you set a pivot you push it to the next row on the dom because
+			evaluated cells are pushed based on the row after the active pivot duhh
+			this function will take the pivot go find the objects they got sorted into,
+			get the middle index assign the pivot whic is always located on the objects that will be on the flipping
+			dom in the row after the pivot that is passed into this
+			you will make them pivots in that row and then push and unshift them into the row after that
+			and start evaluating
+			also if the array length is 1 in the object then that will be created as a pivot then 
+			pushed or unshifted into the next row immediately (based on parent once agian) then u will destroy
+			the object and not queue it because it doesnt need to be sorted */
+		};
 		this.getValues = function() {
 			return this.messages[this.messages.length-1].map(function(letterObject) {
 				return letterObject.value
@@ -100,7 +120,6 @@
 					cellValueArray: [cellValue],
 					directionSortedTo: direction
 				}
-			console.log(newObjectToPush)
 			if (this.sortedObjectsQueue.length === 0) {
 				this.sortedObjectsQueue.push(newObjectToPush)
 			} else {
@@ -116,7 +135,6 @@
 					this.sortedObjectsQueue.push(newObjectToPush)
 				}
 			}
-			console.log(this.sortedObjectsQueue)
 		};
 		$timeout(this.init.bind(this), [1000], [true])
 	});
