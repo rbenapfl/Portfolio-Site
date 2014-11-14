@@ -101,7 +101,7 @@
 			every time you set a pivot you push it to the next row on the dom because
 			evaluated cells are pushed based on the row after the active pivot duhh
 			this function will take the pivot go find the objects they got sorted into,
-			get the middle index assign the pivot whic is always located on the objects that will be on the flipping
+			get the middle index assign the pivot which is always located on the objects that will be on the flipping
 			dom in the row after the pivot that is passed into this
 			you will make them pivots in that row and then push and unshift them into the row after that
 			and start evaluating
