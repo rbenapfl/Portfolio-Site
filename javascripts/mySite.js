@@ -28,11 +28,10 @@
 			this.interval = $interval(this.switchboard.bind(this), 200, [0], [true])
 		};
 		this.switchboard = function() {
-			if (this.getValues() === this.endValues) {
-				console.log("clearing the loop")
-				cancel(this.interval)
+			if (this.arraysToEvaluate[0].length === 0) {
+				$interval.cancel(this.interval)
 			}
-			else {	
+			else {
 				this.evaluateStep()			
 			}
 		};
@@ -45,8 +44,11 @@
 				this.evaluateCell(objectToEvaluate,currentPivot,rowOfActivePivot)
 				if (this.arraysToEvaluate[i].length === 1) {
 					this.setNewPivots(currentPivot,rowOfActivePivot)
+					this.arraysToEvaluate[i].splice(0,1)
 				}
-				this.arraysToEvaluate[i].shift()				
+				else {
+					this.arraysToEvaluate[i].shift()	
+				}			
 			}
 		};
 		this.showEvaluated = function(value,pivot,pivotRow) {
@@ -106,14 +108,27 @@
 			this.messages.push([solvedObjectOnDom])
 		};
 		this.setNewPivots = function(usedPivot,usedPivotRow) {
-			//keep track of parent pivots by pushing used pivot into its parentPivot array
+			//keep track of parent pivot by pushing used pivot into its parentPivot array
 			//search for the object to turn into a pivot looking in row after used pivot row
 			//turn those into pivots queue the arrays
 			//turn them into solved in the next row if it is empty aka two rows after the used pivot is empty
 			//push the pivot first into the new row of this.messages as solved
 			//drag down all parent pivots that are solved (all of them will be in the row of this object)
 			//if they arent already there
+			//if its a new row have a solved array that you bring down actually
+			//starting with setting new ones and getting arrays queued k
+			var newArrays = this.getNewWorkingArrays(usedPivot)
+			console.log(newArrays)
 		};
+		this.getNewWorkingArrays = function(pivotValue) {
+			var sortedObjectsArrays = []
+			for (var i = this.sortedObjectsQueue.length - 1; i >= 0; i--) {
+				if (this.sortedObjectsQueue[i].pivot === pivotValue) {
+					sortedObjectsArrays.push(this.sortedObjectsQueue[i].cellValueArray)
+					this.sortedObjectsQueue.splice(i,1)				}
+			}
+			return sortedObjectsArrays
+		}
 		this.getValues = function() {
 			return this.messages[this.messages.length-1].map(function(letterObject) {
 				return letterObject.value
@@ -132,12 +147,13 @@
 				for (var i = 0; i < this.sortedObjectsQueue.length; i++) {
 					var currentObject = this.sortedObjectsQueue[i]
 					if (currentObject.pivot === pivotValue && currentObject.directionSortedTo === direction ) {
-						notFound = false
 						currentObject.cellValueArray.push(cellValue)
+						notFound = false
 					}
 				}
-				if (notFound) {
+				if (notFound === true) {
 					this.sortedObjectsQueue.push(newObjectToPush)
+					notFound = true
 				}
 			}
 		};
