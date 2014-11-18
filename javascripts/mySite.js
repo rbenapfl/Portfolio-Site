@@ -20,6 +20,7 @@
 		this.arraysToEvaluate = [];
 		this.activePivots = [];
 		this.sortedObjectsQueue = []
+		this.solvedObjects = []
 		this.shuffledMessage = Shuffler.shuffleArray(this.startingMessage)
 		this.messages.push(this.shuffledMessage)
 
@@ -93,7 +94,7 @@
 				}
 			}
 			return index
-		}
+		};
 		this.createFirstPivot = function() {
 			var middleIndex = Math.ceil(this.messages[0].length / 2) - 1
 			var pivotObjectOnDom = this.messages[0][middleIndex]
@@ -106,19 +107,15 @@
 			values.splice(middleIndex,1)
 			this.arraysToEvaluate.push(values)
 			this.messages.push([solvedObjectOnDom])
+			this.solvedObjects.push(solvedObjectOnDom)
 		};
 		this.setNewPivots = function(usedPivot,usedPivotRow) {
-			//keep track of parent pivot by pushing used pivot into its parentPivot array
-			//search for the object to turn into a pivot looking in row after used pivot row
-			//turn those into pivots queue the arrays
-			//turn them into solved in the next row if it is empty aka two rows after the used pivot is empty
-			//push the pivot first into the new row of this.messages as solved
-			//drag down all parent pivots that are solved (all of them will be in the row of this object)
-			//if they arent already there
-			//if its a new row have a solved array that you bring down actually
-			//starting with setting new ones and getting arrays queued k
-			var newArrays = this.getNewWorkingArrays(usedPivot)
-			console.log(newArrays)
+			var sortedValueArrays = this.getNewWorkingArrays(usedPivot)
+			var newPivots = this.getMiddleValues(sortedValueArrays)
+			var newPivotValues = newPivots.values
+			this.removePivotFromArray(sortedValueArrays,newPivots.indexes)
+			//next step if array length is 0 then consider the pivot solved otherwise make pivot object
+			//check the row its going to if it's empty bring down solved if its not just append
 		};
 		this.getNewWorkingArrays = function(pivotValue) {
 			var sortedObjectsArrays = []
@@ -129,6 +126,22 @@
 			}
 			return sortedObjectsArrays
 		}
+		this.getMiddleValues = function(valueArrays) {
+			var pivots = {indexes: [], values: []}
+			for (var i = 0; i < valueArrays.length; i++) {
+				var middleIndex = Math.ceil((valueArrays[i].length / 2 ) - 1 )
+				pivots.indexes.push(middleIndex)
+				pivots.values.push(valueArrays[i][middleIndex])
+			}
+			return pivots
+		};
+		this.removePivotFromArray = function(arrays,pivotIndexes) {
+			var arraysWithoutPivots = arrays
+			for (var i = 0; i < arraysWithoutPivots.length; i++) {
+				arraysWithoutPivots[i].splice(pivotIndexes[i],1)
+			}
+			return arraysWithoutPivots
+		};
 		this.getValues = function() {
 			return this.messages[this.messages.length-1].map(function(letterObject) {
 				return letterObject.value
