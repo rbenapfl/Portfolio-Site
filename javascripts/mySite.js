@@ -29,13 +29,14 @@
 			this.interval = $interval(this.switchboard.bind(this), 200, [0], [true])
 		};
 		this.switchboard = function() {
-			if (this.arraysToEvaluate[0].length === 0) {
+			if (this.arraysToEvaluate.length === 0) {
 				$interval.cancel(this.interval)
+				console.log('turned it off')
 			}
 			else {
 				this.evaluateStep()			
 			}
-		};
+		};	
 		this.evaluateStep = function() {
 			for (i = 0; i < this.arraysToEvaluate.length; i++) {
 				var currentCellValue = this.arraysToEvaluate[i][0]
@@ -44,8 +45,9 @@
 				var objectToEvaluate = this.showEvaluated(currentCellValue,currentPivot,rowOfActivePivot)
 				this.evaluateCell(objectToEvaluate,currentPivot,rowOfActivePivot)
 				if (this.arraysToEvaluate[i].length === 1) {
+					this.arraysToEvaluate.splice(i,1)
+					this.activePivots.splice(i,1)
 					this.setNewPivots(currentPivot,rowOfActivePivot)
-					this.arraysToEvaluate[i].splice(0,1)
 				}
 				else {
 					this.arraysToEvaluate[i].shift()	
@@ -81,7 +83,7 @@
 				currentObjectArray.splice(currentPivotIndex,0,cellObject)
 				this.assignToSortedArray(cellObject.value,pivot,'left')
 			} else {
-				currentObjectArray.splice(currentPivotIndex+1,0,cellObject)
+				currentObjectArray.splice(currentPivotIndex + 1,0,cellObject)
 				this.assignToSortedArray(cellObject.value,pivot,'Right')
 			}		
 		};
@@ -118,13 +120,8 @@
 					var solvedObject = this.solveObject(usedPivotRow,newPivotValues[i])
 					this.addToSolvedArray(usedPivot,solvedObject)
 				} else {
-					this.addPivotToDom(usedPivotRow,newPivotValues[i])
-					//okay bro good work last night you're almost there but
-					//you need to check to see if a row exists below this new pivot
-					//on the dom and if it doesnt append the solved objects, copy
-					//this pivot object to make a solved one
-					//append it to the solved array and push that junk into this.messages
-					//good game
+					var newPivotObject = this.addPivotToDom(usedPivotRow,newPivotValues[i])
+					this.addSolvedToDom(newPivotObject,usedPivot,usedPivotRow)
 					this.queuePivot(sortedValueArrays[i],newPivotValues[i])
 				}
 			}
@@ -160,7 +157,7 @@
 			})
 		};
 		this.solveObject = function(rowAboveObject,valueToSolve) {
-			var rowOfObject = this.messages[rowAboveObject+1]
+			var rowOfObject = this.messages[rowAboveObject + 1]
 			var solvedObject = {}
 			for (var i = 0; i < rowOfObject.length; i++) {
 				if (rowOfObject[i].value === valueToSolve) {
@@ -172,31 +169,60 @@
 		};
 		this.addToSolvedArray = function(oldPivotValue,newSolvedObject) {
 			var oldPivotIndex = 0
+			var objectToAdd = JSON.parse(JSON.stringify(newSolvedObject))
 			for (var i = 0; i < this.solvedObjects.length; i++) {
 				if (this.solvedObjects[i].value === oldPivotValue) {
 					oldPivotIndex = i
 				}
 			}
 			if (oldPivotValue < newSolvedObject.value) {
-				this.solvedObjects.splice(oldPivotIndex+1,0,newSolvedObject)
+				this.solvedObjects.splice(oldPivotIndex+1,0,objectToAdd)
 			} else {
-				this.solvedObjects.splice(oldPivotIndex,0,newSolvedObject)
+				this.solvedObjects.splice(oldPivotIndex,0,objectToAdd)
 			}
 		};
 		this.addPivotToDom = function(usedPivotRow,newPivotValue) {
-			console.log('got here')
-			var rowWithNewPivot = this.messages[usedPivotRow+1]
+			var rowWithNewPivot = this.messages[usedPivotRow + 1]
 			for (var i = 0; i < rowWithNewPivot.length; i++) {
 				if (rowWithNewPivot[i].value === newPivotValue) {
 					rowWithNewPivot[i].status = 'pivot'
-					console.log(rowWithNewPivot[i])
+					return rowWithNewPivot[i]
 				}
 			}
+		};
+		this.addSolvedToDom = function(pivotObject,oldPivotValue,oldPivotRow) {
+			var rowToAppendTo = this.messages[oldPivotRow + 2]
+			var newSolvedObject = JSON.parse(JSON.stringify(pivotObject))
+			newSolvedObject.status = 'solved'
+			if (rowToAppendTo === undefined) {
+				this.addToSolvedArray(oldPivotValue,newSolvedObject)
+				this.messages.push(this.solvedObjects.slice(0))
+			} else {
+				this.appenedSolvedToExistingRow(rowToAppendTo,oldPivotValue,newSolvedObject)
+			}
+		};
+		this.appenedSolvedToExistingRow = function(row,oldPivotValue,objectToAppend) {
+			var workingRow = row
+			var indexOfOldPivotOnWorkingRow = 0
+			for (var i = 0; i < workingRow.length; i++) {
+				if (workingRow[i].value === oldPivotValue) {
+					indexOfOldPivotOnWorkingRow = i
+				}
+			}
+			console.log(indexOfOldPivotOnWorkingRow)
+			if (objectToAppend.value > oldPivotValue) {
+				workingRow.splice(indexOfOldPivotOnWorkingRow + 1,0,objectToAppend)
+			} else {
+				workingRow.splice(indexOfOldPivotOnWorkingRow,0,objectToAppend)
+			}
+			this.addToSolvedArray(oldPivotValue,objectToAppend)
 		};
 		this.queuePivot = function(valuesToSort,pivotValue) {
 			this.activePivots.push(pivotValue)
 			this.arraysToEvaluate.push(valuesToSort)
-		}
+			console.log(this.activePivots)
+			console.log(this.arraysToEvaluate)
+		};
 		this.assignToSortedArray = function(cellValue,pivotValue,direction) {
 			var newObjectToPush = {
 					pivot: pivotValue,
