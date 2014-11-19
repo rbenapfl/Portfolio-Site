@@ -15,7 +15,6 @@
 
 	app.controller('QuicksortController', function(Shuffler,$timeout,$interval) {
 		this.startingMessage = homeMessage;
-		this.endValues = endValues;
 		this.messages = [];
 		this.arraysToEvaluate = [];
 		this.activePivots = [];
@@ -84,7 +83,7 @@
 				this.assignToSortedArray(cellObject.value,pivot,'left')
 			} else {
 				currentObjectArray.splice(currentPivotIndex + 1,0,cellObject)
-				this.assignToSortedArray(cellObject.value,pivot,'Right')
+				this.assignToSortedArray(cellObject.value,pivot,'right')
 			}		
 		};
 		this.retrievePivotIndex = function(pivot) {
@@ -236,7 +235,11 @@
 				for (var i = 0; i < this.sortedObjectsQueue.length; i++) {
 					var currentObject = this.sortedObjectsQueue[i]
 					if (currentObject.pivot === pivotValue && currentObject.directionSortedTo === direction ) {
-						currentObject.cellValueArray.push(cellValue)
+						if (currentObject.directionSortedTo === 'right') {
+							currentObject.cellValueArray.unshift(cellValue)
+						} else {
+							currentObject.cellValueArray.push(cellValue)
+						}
 						notFound = false
 					}
 				}
@@ -276,5 +279,4 @@
 			{letter:'e',value:11,status:'unsolved'},
 			{letter:'r',value:12,status:'unsolved'}
 	]
-    var endValues = [1,2,3,4,5,6,7,8,9,10,11,12]
 })();
