@@ -60,9 +60,11 @@ h1 {
 
 }
 
+#homePanel {
+	margin-top: 20px;
+}
 #homePanel ul {
 	text-align: center;
-	list-style-type: none;
 	font-size: 30px;
 }
 
