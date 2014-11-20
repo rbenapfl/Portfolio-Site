@@ -117,9 +117,8 @@
 				if (sortedValueArrays[i].length === 0 ) {
 					var solvedObject = this.solveObject(usedPivotRow,newPivotValues[i])
 					this.addToSolvedArray(usedPivot,solvedObject)
-					var futureRow = this.messages[usedPivotRow + 2]
-					if (futureRow != undefined) {
-						this.appenedSolvedToExistingRow(usedPivotRow + 2, futureRow,usedPivot,solvedObject)
+					if (this.messages[usedPivotRow + 2] != undefined) {
+						this.appenedSolvedToExistingRow(usedPivotRow + 2,usedPivot,solvedObject)
 					}
 				} else {
 					var newPivotObject = this.addPivotToDom(usedPivotRow,newPivotValues[i])
@@ -201,18 +200,18 @@
 				this.addToSolvedArray(oldPivotValue,newSolvedObject)
 				this.messages.push(this.solvedObjects.slice(0))
 			} else {
-				this.appenedSolvedToExistingRow(rowIndex,rowToAppendTo,oldPivotValue,newSolvedObject)
+				this.appenedSolvedToExistingRow(rowIndex,oldPivotValue,newSolvedObject)
 				this.addToSolvedArray(oldPivotValue,newSolvedObject)
 			}
 		};
-		this.appenedSolvedToExistingRow = function(rowNumber,row,oldPivotValue,objectToAppend) {
-			var workingRowNumber = rowNumber
-			var workingRow = row
+		this.appenedSolvedToExistingRow = function(rowNumber,oldPivotValue,objectToAppend) {
+			var startingRow = rowNumber
 			var indexOfOldPivotOnWorkingRow = 0
-			for (var i = workingRowNumber; i < this.messages.length; i++) {
-				for (var i = 0; i < workingRow.length; i++) {
-					if (workingRow[i].value === oldPivotValue) {
-						indexOfOldPivotOnWorkingRow = i
+			for (var i = startingRow; i < this.messages.length; i++) {
+				var workingRow = this.messages[i]
+				for (var j = 0; j < workingRow.length; j++) {
+					if (workingRow[j].value === oldPivotValue) {
+						indexOfOldPivotOnWorkingRow = j
 					}
 				}
 				if (objectToAppend.value > oldPivotValue) {
