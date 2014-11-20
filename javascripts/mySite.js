@@ -30,7 +30,6 @@
 		this.switchboard = function() {
 			if (this.arraysToEvaluate.length === 0) {
 				$interval.cancel(this.interval)
-				console.log('turned it off')
 			}
 			else {
 				this.evaluateStep()			
@@ -77,7 +76,7 @@
 		}
 		this.evaluateCell = function(cellObject,pivot,pivotRow) {
 			var currentObjectArray = this.messages[pivotRow + 1]
-			var currentPivotIndex = this.retrievePivotIndex(pivot)
+			var currentPivotIndex = this.retrievePivotIndex(pivot,pivotRow)
 			if (cellObject.value < pivot) {
 				currentObjectArray.splice(currentPivotIndex,0,cellObject)
 				this.assignToSortedArray(cellObject.value,pivot,'left')
@@ -86,8 +85,8 @@
 				this.assignToSortedArray(cellObject.value,pivot,'right')
 			}		
 		};
-		this.retrievePivotIndex = function(pivot) {
-			var currentObjectArray = this.messages[this.messages.length-1]
+		this.retrievePivotIndex = function(pivot,row) {
+			var currentObjectArray = this.messages[row + 1]
 			var index = 0
 			for (var i = 0; i < currentObjectArray.length; i++) {
 				if (currentObjectArray[i].value === pivot) {
@@ -118,6 +117,10 @@
 				if (sortedValueArrays[i].length === 0 ) {
 					var solvedObject = this.solveObject(usedPivotRow,newPivotValues[i])
 					this.addToSolvedArray(usedPivot,solvedObject)
+					var futureRow = this.messages[usedPivotRow + 2]
+					if (futureRow != undefined) {
+						this.appenedSolvedToExistingRow(usedPivotRow + 2, futureRow,usedPivot,solvedObject)
+					}
 				} else {
 					var newPivotObject = this.addPivotToDom(usedPivotRow,newPivotValues[i])
 					this.addSolvedToDom(newPivotObject,usedPivot,usedPivotRow)
@@ -190,37 +193,38 @@
 			}
 		};
 		this.addSolvedToDom = function(pivotObject,oldPivotValue,oldPivotRow) {
-			var rowToAppendTo = this.messages[oldPivotRow + 2]
+			var rowIndex = oldPivotRow + 2
+			var rowToAppendTo = this.messages[rowIndex]
 			var newSolvedObject = JSON.parse(JSON.stringify(pivotObject))
 			newSolvedObject.status = 'solved'
 			if (rowToAppendTo === undefined) {
 				this.addToSolvedArray(oldPivotValue,newSolvedObject)
 				this.messages.push(this.solvedObjects.slice(0))
 			} else {
-				this.appenedSolvedToExistingRow(rowToAppendTo,oldPivotValue,newSolvedObject)
+				this.appenedSolvedToExistingRow(rowIndex,rowToAppendTo,oldPivotValue,newSolvedObject)
+				this.addToSolvedArray(oldPivotValue,newSolvedObject)
 			}
 		};
-		this.appenedSolvedToExistingRow = function(row,oldPivotValue,objectToAppend) {
+		this.appenedSolvedToExistingRow = function(rowNumber,row,oldPivotValue,objectToAppend) {
+			var workingRowNumber = rowNumber
 			var workingRow = row
 			var indexOfOldPivotOnWorkingRow = 0
-			for (var i = 0; i < workingRow.length; i++) {
-				if (workingRow[i].value === oldPivotValue) {
-					indexOfOldPivotOnWorkingRow = i
+			for (var i = workingRowNumber; i < this.messages.length; i++) {
+				for (var i = 0; i < workingRow.length; i++) {
+					if (workingRow[i].value === oldPivotValue) {
+						indexOfOldPivotOnWorkingRow = i
+					}
+				}
+				if (objectToAppend.value > oldPivotValue) {
+					workingRow.splice(indexOfOldPivotOnWorkingRow + 1,0,objectToAppend)
+				} else {
+					workingRow.splice(indexOfOldPivotOnWorkingRow,0,objectToAppend)
 				}
 			}
-			console.log(indexOfOldPivotOnWorkingRow)
-			if (objectToAppend.value > oldPivotValue) {
-				workingRow.splice(indexOfOldPivotOnWorkingRow + 1,0,objectToAppend)
-			} else {
-				workingRow.splice(indexOfOldPivotOnWorkingRow,0,objectToAppend)
-			}
-			this.addToSolvedArray(oldPivotValue,objectToAppend)
 		};
 		this.queuePivot = function(valuesToSort,pivotValue) {
 			this.activePivots.push(pivotValue)
 			this.arraysToEvaluate.push(valuesToSort)
-			console.log(this.activePivots)
-			console.log(this.arraysToEvaluate)
 		};
 		this.assignToSortedArray = function(cellValue,pivotValue,direction) {
 			var newObjectToPush = {
