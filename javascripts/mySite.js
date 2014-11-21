@@ -1,5 +1,5 @@
 (function(){
-	var app = angular.module('mySite', [ ])
+	var app = angular.module('mySite', ['ngAnimate'])
 
 	app.controller('PanelController', function() {
 		this.activePanel = 1;
@@ -30,11 +30,25 @@
 		this.switchboard = function() {
 			if (this.arraysToEvaluate.length === 0) {
 				$interval.cancel(this.interval)
+				this.emptyOldRows()
 			}
 			else {
 				this.evaluateStep()			
 			}
-		};	
+		};
+		this.emptyOldRows = function() {
+			for (var i = this.messages.length - 1; i > 0; i--) {
+				this.messages.shift()
+			}
+			this.addDummies()
+		};
+		this.addDummies = function() {
+			this.messages.unshift([{letter: 'W',status: 'fillerBecauseCSSIsHard'}])
+			this.messages.unshift([{letter: 'H',status: 'fillerBecauseCSSIsHard'}])
+			this.messages.unshift([{letter: 'Y',status: 'fillerBecauseCSSIsHard'}])
+			this.messages.unshift([{letter: 'M',status: 'fillerBecauseCSSIsHard'}])
+			this.messages.unshift([{letter: 'E',status: 'fillerBecauseCSSIsHard'}])
+		};
 		this.evaluateStep = function() {
 			for (i = 0; i < this.arraysToEvaluate.length; i++) {
 				var currentCellValue = this.arraysToEvaluate[i][0]
@@ -108,6 +122,11 @@
 			this.messages.push([solvedObjectOnDom])
 			this.solvedObjects.push(solvedObjectOnDom)
 		};
+		this.getValues = function() {
+			return this.messages[this.messages.length-1].map(function(letterObject) {
+				return letterObject.value
+			})
+		};
 		this.setNewPivots = function(usedPivot,usedPivotRow) {
 			var sortedValueArrays = this.getNewWorkingArrays(usedPivot)
 			var newPivots = this.getMiddleValues(sortedValueArrays)
@@ -151,11 +170,6 @@
 				arraysWithoutPivots[i].splice(pivotIndexes[i],1)
 			}
 			return arraysWithoutPivots
-		};
-		this.getValues = function() {
-			return this.messages[this.messages.length-1].map(function(letterObject) {
-				return letterObject.value
-			})
 		};
 		this.solveObject = function(rowAboveObject,valueToSolve) {
 			var rowOfObject = this.messages[rowAboveObject + 1]
