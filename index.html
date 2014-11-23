@@ -24,9 +24,6 @@
 					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(3)}'>
 						<p ng-click='panelSwitcher.setPanel(3)'>Projects</p>
 					</li>
-					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(4)}'>
-						<p ng-click='panelSwitcher.setPanel(4)'>Contact</p>
-					</li>
 				</ul>
 			</div>
 			<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)' ng-controller='QuicksortController as quicksort'>
@@ -37,15 +34,15 @@
 					</ul>
 			</div>
 			<div class='panel' id='about' ng-show='panelSwitcher.checkSelected(2)'>
-				<p>About!</p>
-				<p>{{panelSwitcher.activePanel}}</p>
+				<li>
+					<img src='images/me.jpg' height='557' width='401'>
+				</li>
+				<li>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
 			</div>
 			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(3)'>
 				<p>Projects!</p>
-				<p>{{panelSwitcher.activePanel}}</p>
-			</div>
-			<div class='panel' id='contact' ng-show='panelSwitcher.checkSelected(4)'>
-				<p>Contact!</p>
 				<p>{{panelSwitcher.activePanel}}</p>
 			</div>
 			<div id='stickyFooter'></div>
