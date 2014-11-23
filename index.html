@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app='mySite'>
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet' type='text/css' href='css/normalize.css' />
+		<link rel='stylesheet' type='text/css' href='css/style.css' />
+		<script src="http://code.angularjs.org/1.2.6/angular.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.js"></script>
+		<script type='text/javascript' src='javascripts/mySite.js'></script>
+		
+	</head>
+
+	<body ng-controller='PanelController as panelSwitcher'>
+		<div id='mainContainer'>
+			<div id='header'>
+				<h1>Robert Benapfl</h1>		
+				<ul>
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(1)}'>
+						<p ng-click='panelSwitcher.setPanel(1)'>Home</p>
+					</li>
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(2)}'>
+						<p ng-click='panelSwitcher.setPanel(2)'>About</p>
+					</li>
+					<li class='clickable' ng-class='{active:panelSwitcher.checkSelected(3)}'>
+						<p ng-click='panelSwitcher.setPanel(3)'>Projects</p>
+					</li>
+				</ul>
+			</div>
+			<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)' ng-controller='QuicksortController as quicksort'>
+					<ul class='row' ng-repeat='message in quicksort.messages'>
+						<li ng-repeat='letter in message'>
+							<p class='{{letter.status}}'>{{letter.letter}}</p>
+						</li>
+					</ul>
+			</div>
+			<div class='panel' id='about' ng-show='panelSwitcher.checkSelected(2)'>
+				<li>
+					<img src='images/me.jpg' height='557' width='401'>
+				</li>
+				<li>
+					<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+				</li>
+			</div>
+			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(3)'>
+				<p>Projects!</p>
+				<p>{{panelSwitcher.activePanel}}</p>
+			</div>
+			<div id='stickyFooter'></div>
+		</div>
+		<div id='footer'>
+			<nav id='links'>
+				<a href='https://github.com/rbenapfl' target='_blank'><img src='images/githubicon.jpg' height='56' width='56'></a>
+				<a href='http://www.linkedin.com/in/robertbenapfl' target='_blank'><img src='images/linkedinicon.jpg' height='56' width='56'></a>
+			</nav>
+		</div>
+	</body>
+</html>
