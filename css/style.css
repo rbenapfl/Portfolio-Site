@@ -48,13 +48,13 @@ h1 {
 }
 .panel {
 	clear:both;
+	text-align: center;
 }
 #homePanel {
 	margin-top: 40px;
     height: 100%;
 }	
 #homePanel ul {
-	text-align: center;
 	font-size: 30px;
 }
 #homePanel li {
@@ -100,6 +100,28 @@ h1 {
  	transition-delay:0.2s;
 	-webkit-transition-duration:0s;
 	transition-duration:0s;
+}
+
+#about li {
+	width: 401px;
+	height: 557px;
+	display: inline-block;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: 60px;
+	margin-right: 60px;
+	vertical-align: top;
+}
+#about img {
+	border-color: #CC0000;
+	border-style: inset;
+	border-width: 7px;
+	border-radius: 10px;
+
+}
+#about p {
+	margin-top: 100px;
+	font-size: 20px;
 }
 #stickyFooter {
 	height: 75px;
