@@ -26,6 +26,7 @@
 					</li>
 				</ul>
 			</div>
+			<div id='stickyHeader'></div>
 			<div class='panel' id='homePanel' ng-show='panelSwitcher.checkSelected(1)' ng-controller='QuicksortController as quicksort'>
 					<ul class='row' ng-repeat='message in quicksort.messages'>
 						<li ng-repeat='letter in message'>
@@ -58,11 +59,8 @@
 				</div> 
 				<div class='project' id='sugarsnap'>
 					<li>
-						<a href='http://sugarsnap.herokuapp.com/demo' target='_blank'><img class='largeImage clickable' id='sugarsnapIcon'  src='images/camera.png'></a>
-					</li>
-					<li>
 						<h2>Sugarsnap!</h2>
-						<p>The flagship final rails project that I helped a team of four code during the final week and a half at Dev Bootcamp.  We created Sugarsnap, a photo sharing application that will provide users with all photos taken immediately after they are uploaded on the app in their immediate area (great for landmarks, family events, concerts, etc!).  We even finished early and used the Phonegap platform to make it an ios app as well.  Sugarsnap utilizies Amazon s3 and Firebase to make it's functionality possible in a sleek, intuitive, mobile-first design. You can click on the camera to check it out and/or <a href='https://github.com/rbenapfl/Sugarsnap' target='_blank'>View the Github Repo!</a>
+						<p>The flagship final rails project that I coded with three other classmates during the final week and a half at Dev Bootcamp.  We created Sugarsnap, a photo sharing application that will provide users with all photos taken immediately after they are uploaded on the app in their immediate area (great for landmarks, family events, concerts, etc!).  We even finished early and used the Phonegap platform to make it an ios app as well.  Sugarsnap utilizies Amazon s3 and Firebase to make it's functionality possible in a sleek, intuitive, mobile-first design. You can click on the camera to check it out and/or <a href='https://github.com/rbenapfl/Sugarsnap' target='_blank'>View the Github Repo!</a>
 						</p>
 						<p>
 							<img class='icons' src='images/firebase.png'>
@@ -75,6 +73,23 @@
 							<img class='icons' src='images/phonegap.png'>
 						</p>
 					</li>
+					<li>
+						<a href='http://sugarsnap.herokuapp.com/demo' target='_blank'><img class='largeImage clickable' id='sugarsnapIcon'  src='images/camera.png'></a>
+					</li>
+				</div>
+				<div class='project' id='extension'>
+					<li>
+						<h2>Rose Colored Comments!</h2>
+						<p>Quick and dirty Google Chrome extension I whipped up at a DBC hackathon with one other guy (talk about being a seasoned pair programmer).  We coded a Chrome extension that lets you view youtube comments in a window next to the video player without scrolling down as well as providing a word filtering feature to remove all comments that have a negative flavor.  Neither of us had knowledge about how to code a chrome extension beforehand yet we made one that interacts with the browser window as well as utilizing the Youtube API within a few hours!</p>
+						<p>
+							<img class='icons' src='images/gce.jpg'>
+							<img class='icons' src='images/js.png'>
+							<img class='icons' src='images/css.png'>
+							<img class='icons' src='images/html.png'>	
+						</p>	
+					</li>
+					<li><img class='largeImage' id='youtubeImg' src='images/youtube.png'></li>
+					<li><h2>Using this extension</h2><p>You can run this extension by simply <a href='https://github.com/rbenapfl/RoseColoredComments/archive/master.zip'>downloading</a>, unzipping, and going to your extensions in Chrome.  Enable Developer Mode, hit Load Unpacked Extension, and select the Source Folder.  The extension fires up on click so head over to your favorite youtube video and click the extension icon for some positive comment viewing (bonus points if you customize the word filter list to your liking in the JS file).  <a href='https://github.com/rbenapfl/RoseColoredComments' target='_blank'>View the Github Repo </a> and some pictures of it in action!</p>
 				</div>
 			</div>
 			<div id='stickyFooter'></div>
