@@ -7,6 +7,9 @@ html, body {
 	height: 100%;
 	font-family: 'Fjalla One', sans-serif;
 }
+a {
+	color: blue;
+}
 #mainContainer {
 	min-height: 100%;
 	margin: 0 auto -75px;
@@ -115,17 +118,53 @@ h1 {
 	margin-right: 60px;
 	vertical-align: top;
 }
-#about img {
-	border-color: #CC0000;
+.largeImage {
 	border-style: inset;
 	border-width: 7px;
 	border-radius: 10px;
-
+}
+#about img {
+	border-color: #CC0000;
 }
 #about p {
 	text-align: left;
 	margin-top: 20px;
 	font-size: 25px;
+}
+.project {
+	height: 592px;
+	margin-top: 20px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: gray;
+}
+.project li {
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 526px;
+	height: 526px;
+	display: inline-block;
+	vertical-align: top;
+}
+.project h2 {
+	font-size: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.project p {
+	font-size: 25px;
+	text-align: left;
+}
+.icons {
+	margin-top: 20px;
+	margin-left: 10px;
+}
+#quicksortImg {
+	border-color: #0000FF;
+}
+#lastProject {
+	border-bottom-width: 0px;
 }
 #stickyFooter {
 	height: 75px;
