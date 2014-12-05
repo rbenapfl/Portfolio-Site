@@ -35,15 +35,31 @@
 			</div>
 			<div class='panel' id='about' ng-show='panelSwitcher.checkSelected(2)'>
 				<li>
-					<img src='images/me.jpg' height='557' width='401'>
+					<img class='largeImage' src='images/me.jpg' height='557' width='401'>
 				</li>
 				<li>
-					<p>Hello, and thank you for visiting my site!  I am a passionate Javascript and Ruby coder, looking for my first position as a developer.  I graduated from Dev Bootcamp SF at the end of May 2014, where I learned how to write good code, worked tons of hours programming on a team, and gave myself the mindset and capability to challenge myself and learn new things at blazing speeds (seriously that graphical representation of a quicksort on my home page wasn't the easiest thing to pull off).  Feel free to <a href='mailto:robertbenapfl@gmail.com'>email me</a> (robertbenapfl@gmail.com) If you are interested in adding me to a development team!</p>
+					<p>Hello, and thank you for visiting my site!  I am a passionate Javascript and Ruby coder looking for my first position as a developer.  I graduated from Dev Bootcamp SF at the end of May 2014, where I learned how to write good code, worked tons of hours programming on a team, and gave myself the mindset and capability to challenge myself and learn new things at blazing speeds.  Feel free to <a href='mailto:robertbenapfl@gmail.com'>email me</a> (robertbenapfl@gmail.com) If you are interested in adding me to a development team!</p>
 				</li>
 			</div>
 			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(3)'>
-				<p>Projects!</p>
-				<p>{{panelSwitcher.activePanel}}</p>
+				<div class='project' id='portfolio'>
+					<li><img class='largeImage' id='quicksortImg' src='images/quicksort.png'></li>
+					<li>
+						<h2>This Site!</h2>
+						<p>This site features some really cool AngularJS stuff such as painless single page tab switching, and data binding and animations for that home page that you hopefully just watched.  It is a graphical step by step representation of the quicksort algorithm going to work.  Since that algorithm is normally recursive, my job to capture all of the recursive calls working at once was really difficult.  And no it does not have O(n log n) runtime itself or anything close! (you can try that and get back to me if you think it's possible, and don't pick the first index to pivot like this picture uses hahaha...)
+							<a href='https://github.com/rbenapfl/Portfolio-Site' target='_blank'>View the Github Repo!</a>
+						</p>
+						<p>
+							<img class='icons' src='images/angular.png'>
+							<img class='icons' src='images/css.png'>
+							<img class='icons' src='images/html.png'>
+							<img class='icons' src='images/js.png'>
+
+
+
+
+					</li>
+				</div> 
 			</div>
 			<div id='stickyFooter'></div>
 		</div>
