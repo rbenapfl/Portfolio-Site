@@ -132,7 +132,7 @@ h1 {
 	font-size: 25px;
 }
 .project {
-	height: 592px;
+	min-height: 592px;
 	margin-top: 20px;
 	border-bottom-width: 2px;
 	border-bottom-style: solid;
@@ -162,6 +162,9 @@ h1 {
 }
 #quicksortImg {
 	border-color: #0000FF;
+}
+#sugarsnapIcon {
+	border-color: #00CC00;
 }
 #lastProject {
 	border-bottom-width: 0px;
