@@ -176,6 +176,7 @@ h1 {
 #sugarsnapIcon {
 	border-color: #00CC00;
 	border-radius: 70px;
+	border-style: solid;
 }
 #youtubeImg {
 	width: 400px;
@@ -189,7 +190,11 @@ h1 {
 #extension p {
 	font-size: 20px;
 }
-#lastProject {
+#dessertImg {
+	border-color: #CCCC00;
+	border-radius: 0px;
+}
+#desserts {
 	border-bottom-width: 0px;
 }
 #stickyFooter {
