@@ -135,6 +135,7 @@ h1 {
 	border-color: #CC0000;
 }
 #about p {
+	font-family: 'Slabo', sans-serif;
 	text-align: left;
 	margin-top: 20px;
 	font-size: 25px;
@@ -162,6 +163,7 @@ h1 {
 	margin-bottom: 10px;
 }
 .project p {
+	font-family: 'Slabo', sans-serif;
 	font-size: 25px;
 	text-align: left;
 }
