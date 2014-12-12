@@ -158,13 +158,13 @@ h1 {
 	vertical-align: top;
 }
 .project h2 {
-	font-size: 40px;
+	font-size: 35px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 .project p {
 	font-family: 'Slabo', sans-serif;
-	font-size: 25px;
+	font-size: 20px;
 	text-align: left;
 }
 .icons {
