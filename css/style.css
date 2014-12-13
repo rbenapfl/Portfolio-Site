@@ -113,7 +113,7 @@ h1 {
 }
 
 #about {
-	margin-top: 20px;
+	margin-top: 10px;
 }
 #about li {
 	width: 496px;
@@ -223,7 +223,13 @@ nav img {
 }
 @media (max-width: 1190px) {
 	#homePanel ul {
-		font-size: 2.8vw;
+		font-size: 25px;
+	}
+	#homePanel li {
+		margin-left: 2%;
+		margin-right: 2%;
+		margin-top: 5px;
+		margin-bottom: 5px;
 	}
 	.solved {
 		font-size: 6vw;
@@ -266,7 +272,7 @@ nav img {
 		font-size: 27px;
 	}
 	.project p {
-		font-size: 18px;
+		font-size: 16px;
 	}
 	.largeImage {
 		width: 384px;
