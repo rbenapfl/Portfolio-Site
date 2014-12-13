@@ -116,7 +116,7 @@ h1 {
 	margin-top: 20px;
 }
 #about li {
-	width: 26%;
+	width: 496px;
 	display: inline-block;
 	margin-top: 10px;
 	margin-left: 4%;
@@ -138,8 +138,8 @@ h1 {
 #about p {
 	font-family: 'Slabo', sans-serif;
 	text-align: left;
-	margin-top: 3%;
-	font-size: 1.5vw;
+	margin-top: 30px;
+	font-size: 30px;
 }
 .project {
 	min-height: 602px;
@@ -221,23 +221,7 @@ nav {
 nav img {
 	margin-left: 5px;
 }
-@media (max-width: 1500px) {
-	#about li {
-		width: 32%;
-	}
-	#about p {
-		font-size: 1.9vw;
-	}
-}
-@media (max-width: 1300px) {
-	#about li {
-		width: 38%;
-	}
-	#about p {
-		font-size: 2.3vw;
-	}
-}
-@media (max-width: 1100px) {
+@media (max-width: 1190px) {
 	#homePanel ul {
 		font-size: 2.8vw;
 	}
