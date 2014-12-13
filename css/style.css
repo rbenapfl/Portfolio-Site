@@ -3,7 +3,7 @@
 	padding: 0;
 }
 html, body {
-	min-width: 600px;
+	min-width: 570px;
 	height: 100%;
 	font-family: 'Fjalla One', sans-serif;
 }
@@ -14,7 +14,6 @@ a {
 	min-height: 100%;
 	margin: 0 auto -75px;
 	width: 100%;
-
 }
 #header {
 	position: fixed;
@@ -114,35 +113,38 @@ h1 {
 }
 
 #about {
-	margin-top: 50px;
-	margin-bottom: 20px;
+	margin-top: 20px;
 }
 #about li {
-	width: 401px;
-	height: 557px;
+	width: 26%;
 	display: inline-block;
 	margin-top: 10px;
-	margin-left: 60px;
-	margin-right: 60px;
-	vertical-align: top;
+	margin-left: 4%;
+	margin-right: 4%;
+	margin-bottom: 10px;
+	vertical-align: middle;
 }
 .largeImage {
 	border-style: inset;
 	border-width: 7px;
-	border-radius: 10px;
 }
-#about img {
+#myPic {
+	height: 100%;
+	width: 100%;
 	border-color: #CC0000;
+	border-style: inset;
+	border-width: 7px;
 }
 #about p {
 	font-family: 'Slabo', sans-serif;
 	text-align: left;
-	margin-top: 20px;
-	font-size: 25px;
+	margin-top: 3%;
+	font-size: 1.5vw;
 }
 .project {
 	min-height: 602px;
 	margin-top: 20px;
+	margin-bottom: 10px;
 	border-bottom-width: 2px;
 	border-bottom-style: solid;
 	border-bottom-color: gray;
@@ -161,6 +163,9 @@ h1 {
 	font-size: 35px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #D3D3D3;
 }
 .project p {
 	font-family: 'Slabo', sans-serif;
@@ -190,9 +195,6 @@ h1 {
 	margin-top: 83px;
 	width: 400px;
 }
-#extension p {
-	font-size: 20px;
-}
 #dessertImg {
 	border-color: #CCCC00;
 	border-radius: 0px;
@@ -218,4 +220,97 @@ nav {
 }	
 nav img {
 	margin-left: 5px;
+}
+@media (max-width: 1500px) {
+	#about li {
+		width: 32%;
+	}
+	#about p {
+		font-size: 1.9vw;
+	}
+}
+@media (max-width: 1300px) {
+	#about li {
+		width: 38%;
+	}
+	#about p {
+		font-size: 2.3vw;
+	}
+}
+@media (max-width: 1100px) {
+	#homePanel ul {
+		font-size: 2.8vw;
+	}
+	.solved {
+		font-size: 6vw;
+	}
+	#about li {
+		display: inline;
+	}
+	#myPic {
+		width: 50%;
+		height: 50%;
+	}
+	#about p {
+		margin: 10px;
+		margin-top: 30px;
+	}
+}
+@media (max-width: 750px) {
+	#myPic {
+		width: 60%;
+		height: 60%;
+	}
+	#about p {
+		margin: 10px;
+		margin-top: 30px;
+		font-size: 4.0vw;
+	}
+}
+@media (max-width: 1440px) {
+	.project {
+		min-height: 450px;
+	}
+	.project li {
+		margin-top: 10px;
+  		margin-left: 23px;
+  		margin-right: 23px;
+  		width: 395px;
+  		height: 395px;
+	}
+	.project h2 {
+		font-size: 27px;
+	}
+	.project p {
+		font-size: 18px;
+	}
+	.largeImage {
+		width: 384px;
+		height: 384px;
+	}
+	#extension h2 {
+		font-size: 22px;
+	}
+	#extension p {
+		font-size: 16px;
+	}
+	#extension li {
+		margin-top: 20px;
+		width: 300px;
+		font-size: 15px;
+	}
+	#youtubeImg {
+		margin-top: 10px;
+		width: 300px;
+		height: 300px;
+	}
+	.icons {
+		width: 30px;
+		height: 38px;
+		margin-top: 15px;
+		margin-left: 7px;
+	}
+	#jadeIcon { 
+		width: 69px;
+	}
 }
