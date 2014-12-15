@@ -221,7 +221,7 @@ nav {
 nav img {
 	margin-left: 5px;
 }
-@media (max-width: 1190px) {
+@media (max-width: 1210px) {
 	#homePanel ul {
 		font-size: 25px;
 	}
