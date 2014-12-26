@@ -83,7 +83,8 @@ h1 {
 	font-size: 75px;
 }
 .fillerBecauseCSSIsHard {
-	color: #FFFFFF
+	color: #FFFFFF;
+	font-size: 2.5vh;
 }
 .row.ng-enter,
 .row.ng-move,
@@ -176,6 +177,11 @@ h1 {
 	margin-top: 20px;
 	margin-left: 10px;
 }
+#imgurImg {
+	border-style: outset;
+	border-radius: 10px;
+	border-color: #DDDDDD;
+}
 #quicksortImg {
 	border-color: #0000FF;
 	border-radius: 0px;
@@ -238,8 +244,8 @@ nav img {
 		display: inline;
 	}
 	#myPic {
-		width: 50%;
-		height: 50%;
+		width: 40%;
+		height: 40%;
 	}
 	#about p {
 		margin: 10px;

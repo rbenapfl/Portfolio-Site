@@ -8,7 +8,6 @@
 		<script src="http://code.angularjs.org/1.2.6/angular.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-animate.js"></script>
 		<script type='text/javascript' src='javascripts/mySite.js'></script>
-		
 	</head>
 
 	<body ng-controller='PanelController as panelSwitcher'>
@@ -44,6 +43,21 @@
 				</li>
 			</div>
 			<div class='panel' id='projects' ng-show='panelSwitcher.checkSelected(3)'>
+				<div class='project' id='imgur-timer'>
+					<li>
+						<h2>Imgur Timer!</h2>
+						<p>Google Chrome Extension I coded that will clock only your time spent browsing Imgur. Because I need to query the active tab in the web browser to do this, the chrome store will prompt you that my extension can change and access all of your web data... Thanks for selling me out Google! (it can but it doesn't)  Users did not like that or the fact that the timer includes a start, stop, and reset feature despite the rest of it being automatic: changing or not changing the time when you enter and leave imgur on your active tab.  Oh well.  It still provided me with a couple challenges and a lot of fun while coding.  You can click the picture to be redirected to the extension's page in the chrome store. <a href='https://github.com/rbenapfl/Imgur-Timer' target='_blank'>View the Github Repo!</a></p>
+						<p>
+							<img class='icons' src='images/gce.jpg'>
+							<img class='icons' src='images/js.png'>
+							<img class='icons' src='images/css.png'>
+							<img class='icons' src='images/html.png'>	
+						</p>
+					</li>
+					<li>
+						<a href='https://chrome.google.com/webstore/detail/imgur-timer/pocknnioahmfjbngbjaipciepgcamnko' target='_blank'><img class='largeImage clickable' id='imgurImg'  src='images/imgur.jpg'></a>
+					</li>
+				</div>
 				<div class='project' id='portfolio'>
 					<li><img class='largeImage' id='quicksortImg' src='images/quicksort.png'></li>
 					<li>
